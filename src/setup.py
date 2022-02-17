@@ -5,18 +5,11 @@ import logging
 from datetime import datetime
 import constants
 import inquirer
+from os import getcwd
 
 from util import generate_questions_list
 
 def setup():
-    # log_file = datetime.now().strftime('%d_%m_%Y_%H_%M_%S')
-    # logging.basicConfig(filename=f'{constants.default_log_dir}/{log_file}.{constants.log_ext}', 
-    #                     format='%(asctime)s %(message)s', 
-    #                     filemode='w')
-
-    # logger = logging.getLogger()
-    # logger.setLevel(logging.INFO)
-    # logger.info('setting up new project')
     answers = inquirer.prompt(generate_questions_list())
     langs = answers['target_languages']
     use_cpp = False
@@ -51,6 +44,31 @@ def setup():
                                                     default=c_def_std,
                                                     ignore=False,
                                                     validate=True)])
+    data = {}
+    data['compilation_units'] = []
+    data['libraries'] = []
+    data['compiled_objects'] = []
+    data['languages'] = []
+    if use_cpp:
+        cpp = {'name': 'C++', 
+               'src_extension': 'cpp', 
+               'hdr_extension': 'hpp',
+               'standard': cpp_std['cpp_std']}
         
+        data['languages'].append(cpp)
+    if use_c:
+        c = {'name': 'C', 
+               'src_extension': 'c', 
+               'hdr_extension': 'h',
+               'standard': c_std['c_std']}
+        data['languages'].append(c)
+    
+    data['root_dir'] = str(getcwd())
+    data['build_dir'] = answers['build_dir']
+    data['src_dir'] = answers['src_dir']
+    data['log_dir'] = answers['log_dir']
+    
+    with open(constants.config, 'w', encoding=constants.encoding) as file:
+        dump(data, file)
     
 setup()

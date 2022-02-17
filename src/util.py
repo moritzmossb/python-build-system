@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from constants import question_dict, data
+from constants import question_dict, data, encoding
 from json import load
 
 def option_print(options: list, default : str = None):
@@ -17,7 +17,7 @@ def extract_default(options: list, default: str):
         
 def generate_questions_list():
     qdata = None
-    with open(data, 'r') as file:
+    with open(data, 'r', encoding=encoding) as file:
         qdata = load(file)['setup_questions']
     if qdata is None:
         return False
@@ -29,7 +29,6 @@ def generate_questions_list():
         default = question.get('default', None)
         message = question['description']
         choices = question.get('options', None)
-        required = question['required']
         questions.append(question_dict[t](name, message=message, choices=choices, default=default, ignore=False, 
                                           validate=True, show_default=True))
         
