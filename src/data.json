@@ -48,5 +48,25 @@
             "default": "log",
             "type": "text"
         }
+    ],
+    "conditional_questions": [
+        {
+            "name": "cpp_std",
+            "description": "Choose which C++ standard you want to use",
+            "required": true,
+            "default": "20",
+            "options": ["11", "14", "17", "20"],
+            "type": "list",
+            "condition": "use_cpp"
+        },
+        {
+            "name": "c_std",
+            "description": "Choose which C standard you want to use",
+            "required": true,
+            "default": "17",
+            "options": ["89", "90", "95", "99", "11", "17"],
+            "type": "list",
+            "condition": "use_c"
+        }
     ]
 }
