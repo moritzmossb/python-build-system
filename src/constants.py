@@ -16,6 +16,7 @@ valid_skip_values      = ('skip', '', ' ')
 valid_input_separators = (' ', ',', '/')
 
 object_flag = 'c'
+dump_indent = 4
 
 question_dict = {'checkbox': inquirer.Checkbox, 'text': inquirer.Text, 'editor': inquirer.Editor,
                  'list': inquirer.List, 'password': inquirer.Password, 'confirm': inquirer.Confirm,}
