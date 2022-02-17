@@ -33,7 +33,7 @@ def generate_condition_questions(conditions):
     questions = []
     for q in qdata:
         cond  = q['condition']
-        if not conditions[cond]:
+        if not conditions[cond]['use']:
             continue
         name = q['name']
         t = q['type']

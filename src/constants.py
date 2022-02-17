@@ -9,6 +9,8 @@ data_file_name = 'data'
 
 data = f'{data_file_name}.{config_file_extension}'
 
+languages = ('C++', 'C')
+
 logging_enabled = True
 log_ext = 'log'
 

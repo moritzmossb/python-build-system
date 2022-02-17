@@ -13,35 +13,28 @@ from util import generate_questions_list, generate_condition_questions
 def setup():
     answers = inquirer.prompt(generate_questions_list())
     langs = answers['target_languages']
-    use_cpp = False
-    use_c   = False
-    if 'C++' in langs:
-        use_cpp = True
-    if 'C' in langs:
-        use_c = True
-            
+    languages = {'C++': {'use': False, 'name': 'cpp', 'src_ext': 'cpp', 'hdr_ext': 'hpp', 'ans_var': 'cpp_std'},
+                 'C': {'use': False, 'name': 'c', 'src_ext': 'c', 'hdr_ext': 'h', 'ans_var': 'c_std'} }
+    
+    for lang in constants.languages:
+        if lang in langs:
+            languages[lang]['use'] = True
+        
     data = {}
     data['compilation_units'] = []
     data['libraries'] = []
     data['compiled_objects'] = []
     data['languages'] = {}
     
-    conditions = {'use_cpp': use_cpp, 'use_c': use_c}
-    cond_answers = inquirer.prompt(generate_condition_questions(conditions))
+    cond_answers = inquirer.prompt(generate_condition_questions(languages))
     
-    if use_cpp:
-        cpp = {'name': 'C++', 
-               'src_extension': 'cpp', 
-               'hdr_extension': 'hpp',
-               'standard': cond_answers['cpp_std']}
-        
-        data['languages']['cpp'] = cpp
-    if use_c:
-        c = {'name': 'C', 
-               'src_extension': 'c', 
-               'hdr_extension': 'h',
-               'standard': cond_answers['c_std']}
-        data['languages']['c'] = c
+    for cond in languages:
+        if not languages[cond]['use']:
+            continue
+        l = languages[cond]
+        lang = {'name': l['name'], 'src_extension': l['src_ext'], 'hdr_extension': l['hdr_ext'], 
+                'standard': cond_answers[l['ans_var']]}
+        data['languages'][l['name']] = lang
     
     data['root_dir'] = str(getcwd())
     data['build_dir'] = answers['build_dir']
@@ -50,5 +43,5 @@ def setup():
     
     with open(constants.config, 'w', encoding=constants.encoding) as file:
         dump(data, file, indent=constants.dump_indent)
-    
+
 setup()
