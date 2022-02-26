@@ -1,27 +1,87 @@
 {
     "about": {
-        "name": "gwent"
+        "name": "Gwent - A card game from The Witcher",
+        "description": "A simple card-game from the The Witcher series, where you battle your opponent with cards",
+        "project": "gwent-card-game",
+        "authors": [
+            {
+                "name": "Moritz",
+                "email": "moritz@server.com"
+            },
+            {
+                "name": "Peter",
+                "email": "peter@server.at"
+            }
+        ]
     },
     "environment": {
-        "root-dir": "/home/moritz/Projects/python_build",
+        "root-dir": "/home/moritz/Projects/card-game/",
+        "compiler": {
+            "name": "GCC",
+            "command": "g++",
+            "version": "11.2.0",
+            "global-flags": [
+                "std=c++20",
+                "Wall",
+                "pedantic"
+            ]
+        },
         "directories": {
             "source": "src",
             "build": "build"
         },
-        "compiler": {},
-        "libraries": {},
+        "libraries": {
+            "internal": [
+                {
+                    "name": "card",
+                    "file": "card.hpp",
+                    "description": "provides the base-class for all card-types in the game"
+                }
+            ],
+            "external": [],
+            "stl": [
+                {
+                    "name": "iostream",
+                    "description": "allows for interaction with stdin / stdout"
+                }
+            ]
+        },
         "compile-types": {
             "object": {
                 "flags": [
                     "c"
                 ]
+            },
+            "exec": {
+                "flags": [
+                    "o"
+                ]
             }
         },
         "executable": {
             "name": "gwent",
-            "file": "main.cpp"
+            "main-file": "main.cpp"
         },
-        "compile-units": [],
-        "objects": []
+        "compile-units": [
+            {
+                "name": "card",
+                "file": "card/card.cpp",
+                "type": "object",
+                "dependencies": []
+            },
+            {
+                "name": "main",
+                "file": "main.cpp",
+                "type": "exec",
+                "dependencies": [
+                    "card"
+                ]
+            }
+        ],
+        "objects": [
+            "main",
+            "card"
+        ],
+        "current": ""
     }
 }
