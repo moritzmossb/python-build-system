@@ -64,9 +64,15 @@ def setup() -> dict :
                   'objects': []}
     
     env['directories'] = { 'source': source, 'build': build }
-    env['compile-types'] = { 'object': { 'flags': ['c'] } }
+    env['compile-types'] = { 'object': { 'flags': ['c'] }, 'exec': { 'flags': [] } }
     env['compiler'] = {'name': '', 'command': '', 'version': '', 'global-flags': []}
-    env['executable'] = { 'name': name, 'file': 'main.cpp' }
+    env['executable'] = { 'name': name, 'target': 'main' }
+    env['compile-units'] = [{
+        'name': 'main',
+        'file': 'main.cpp',
+        'type': 'exec',
+        'dependencies': []
+    }]
     
     return { 'about': about, 'environment': env }
     
