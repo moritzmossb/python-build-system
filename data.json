@@ -1,0 +1,27 @@
+{
+    "about": {
+        "name": "gwent"
+    },
+    "environment": {
+        "root-dir": "/home/moritz/Projects/python_build",
+        "directories": {
+            "source": "src",
+            "build": "build"
+        },
+        "compiler": {},
+        "libraries": {},
+        "compile-types": {
+            "object": {
+                "flags": [
+                    "c"
+                ]
+            }
+        },
+        "executable": {
+            "name": "gwent",
+            "file": "main.cpp"
+        },
+        "compile-units": [],
+        "objects": []
+    }
+}
