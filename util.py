@@ -115,20 +115,24 @@ def compile_target(target : str) -> bool:
         compile_unit(unit['file'], flags, cxx, src_dir, unit['name'])
         return True
     
+    
+    
+    if unit['type'] == 'object':
+        compile_unit(unit['file'], flags, cxx, src_dir, '', True)
+        return True
+        
     for d in deps:
         compile_target(d)
         if f'{d}.o' not in objects:
             objects.append(f'{d}.o')
-    
-    if unit['type'] == 'object':
-        compile_unit(unit['file'], flags, cxx, src_dir, '', True)
+            
     if unit['type'] == 'exec':
         compile_unit(unit['file'], flags, cxx, src_dir, '', True)
         print(f'[CXX]{generate_objstring()} {unit["name"]}.o -> {unit["name"]}')
         system(f'{cxx}{generate_flag_string(flags, ["o", "c"])} -o {unit["name"]}{generate_objstring()} {unit["name"]}.o')
         
     
-    if build_dir != '.':
+    if build_dir not in INVALID_DIRNAMES:
         for o in objects:
             print(f'[MV ] {o} {build_dir}/{o}')
             system(f'mv {o} {build_dir}/{o}')

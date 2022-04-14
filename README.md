@@ -42,7 +42,7 @@ To add a compilation-unit (i.e. a target), you add an object to the
 ```json
 {
     "name": "card",
-    "file": "game/card.cpp",
+    "file": "card/card.cpp",
     "type": "object",
     "dependencies": []
 }
@@ -52,3 +52,12 @@ Files are easily specified by starting in the set source-directory. For the give
 target "card" has it's source file in `<project-root>/src/card/card.cpp`. Dependencies are 
 implementation files you use in your project, e.g. when you include `card.hpp` in your 
 `main.cpp`. Dependencies are added via their target name.
+
+Currently supported unit-types are:
+
+* `single`, project consists of single file
+* `object`, supplied file is to compiled into an object (meant as helper for exec)
+* `exec`, all dependencies are compiled into objects, including the specified file, then they are linked into an executable with name `name`
+
+If a build-dir is specified (i.e. it's not `.` or `..`), then all object files 
+are moved there after an `exec` target has been compiled.
