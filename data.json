@@ -1,6 +1,6 @@
 {
     "about": {
-        "name": "gwent"
+        "name": "task_1"
     },
     "environment": {
         "root-dir": "/home/moritz/Projects/python_build",
@@ -9,10 +9,10 @@
             "build": "build"
         },
         "compiler": {
-            "name": "",
-            "command": "",
+            "name": "GCC",
+            "command": "gcc",
             "version": "",
-            "global-flags": []
+            "global-flags": ["Wall", "Wextra", "std=c18", "pedantic"]
         },
         "libraries": {},
         "compile-types": {
@@ -26,13 +26,13 @@
             }
         },
         "executable": {
-            "name": "gwent",
+            "name": "task_1",
             "target": "main"
         },
         "compile-units": [
             {
                 "name": "main",
-                "file": "main.cpp",
+                "file": "main.c",
                 "type": "exec",
                 "dependencies": []
             }
